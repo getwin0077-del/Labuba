@@ -273,7 +273,20 @@ export default function App(){
         className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-sm shadow-sm transition active:scale-95 disabled:opacity-40 ${disabled? 'cursor-not-allowed' : 'hover:shadow'} ${locked? 'opacity-60' : ''} bg-white/70 backdrop-blur`}> 
         <Icon className="w-4 h-4" />
         <span>{t.name}</span>
-        {t.rarity && <span className={`text-[10px] px-1 rounded ${t.rarity==='legend'?'bg-purple-100':'t.rarity==="epic"?"bg-pink-100":"bg-zinc-100"}`}>{t.rarity}</span>}
+        {t.rarity && <span className={`text-[10px] px-1 rounded ${t.rarity && (
+  <span
+    className={`text-[10px] px-1 rounded ${
+      t.rarity === 'legend'
+        ? 'bg-purple-100'
+        : t.rarity === 'epic'
+        ? 'bg-pink-100'
+        : 'bg-zinc-100'
+    }`}
+  >
+    {t.rarity}
+  </span>
+)}
+
         {disabled && <span className="text-[10px] opacity-70">{Math.ceil(cdLeft(t.id)/100)/10}s</span>}
       </button>
     );
@@ -315,7 +328,6 @@ export default function App(){
   }
 
   // Магазин
-  const tools = useMemo(()=> TOOLS_BASE,[]);
   const shopList = useMemo(()=> tools.filter(t=> t.unlockAt), [tools]);
   function buyTool(t){ if(owned[t.id]) return; const price = t.unlockAt ?? 50; if(coins>=price){ setCoins(c=>c-price); setOwned(o=>({...o,[t.id]:true})); toast(`Открыт: ${t.name}`); if(!muted){ beep({freq:520}); beep({freq:780}); } } else toast("Не хватает монет"); }
 
