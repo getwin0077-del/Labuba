@@ -273,7 +273,7 @@ export default function App(){
         className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-sm shadow-sm transition active:scale-95 disabled:opacity-40 ${disabled? 'cursor-not-allowed' : 'hover:shadow'} ${locked? 'opacity-60' : ''} bg-white/70 backdrop-blur`}> 
         <Icon className="w-4 h-4" />
         <span>{t.name}</span>
-        {t.rarity && <span className={`text-[10px] px-1 rounded ${t.rarity && (
+        {t.rarity && (
   <span
     className={`text-[10px] px-1 rounded ${
       t.rarity === 'legend'
@@ -286,7 +286,6 @@ export default function App(){
     {t.rarity}
   </span>
 )}
-
         {disabled && <span className="text-[10px] opacity-70">{Math.ceil(cdLeft(t.id)/100)/10}s</span>}
       </button>
     );
@@ -419,7 +418,7 @@ export default function App(){
               <div className="flex items-center justify-between mb-2"><div className="font-semibold flex items-center gap-2"><Store className="w-4 h-4"/> Магазин инструментов</div><button onClick={()=>setShowShop(false)} className="text-sm px-2 py-1 border rounded">Закрыть</button></div>
               <div className="grid grid-cols-1 gap-2 max-h-[60vh] overflow-auto pr-1">
                 {shopList.map(t=>{ const price = t.unlockAt ?? 50; const Icon = t.icon; const ownedFlag = !!owned[t.id]; return (
-                  <div key={t.id} className="flex items-center justify_between p-2 rounded-xl border bg-white/80">
+                  <div key={t.id} className="flex items-center justify-between p-2 rounded-xl border bg-white/80">
                     <div className="flex items-center gap-3">
                       <Icon className="w-5 h-5"/>
                       <div>
@@ -429,7 +428,7 @@ export default function App(){
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="text-sm">{ownedFlag? 'Открыт' : `Цена: ${price}`}</div>
-                      {!ownedFlag && <button onClick={()=>buyTool(t)} className="px-2 py-1 rounded border hover:bg_white">Купить</button>}
+                      {!ownedFlag && <button onClick={()=>buyTool(t)} className="px-2 py-1 rounded border hover:bg-white">Купить</button>}
                     </div>
                   </div>
                 ); })}
